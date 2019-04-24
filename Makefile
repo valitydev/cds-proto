@@ -10,7 +10,7 @@ TEMPLATES_PATH := .
 SERVICE_NAME := cds_proto
 
 # Build image tag to be used
-BUILD_IMAGE_TAG := 55e987e74e9457191a5b4a7c5dc9e3838ae82d2b
+BUILD_IMAGE_TAG := cfe6e8598cb10772cf0f1fc8338e9092cd75b1cb
 CALL_ANYWHERE := \
 	all submodules compile clean distclean \
 	java.compile java.deploy
