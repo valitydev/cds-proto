@@ -1,0 +1,9 @@
+{application, cds_proto, [
+    {description, "Thrift proto for CDS"},
+    {vsn, "0.1.0"},
+    {applications, [
+        kernel,
+        stdlib
+    ]},
+    {maintainers, []}
+]}.
