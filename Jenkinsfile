@@ -40,7 +40,7 @@ build('cds-proto', 'docker-host') {
                 } else if (env.BRANCH_NAME.startsWith('epic/')) {
                     sh 'make wc_deploy_epic_nexus SETTINGS_XML=$SETTINGS_XML'
                 } else {
-                    sh 'make wc_java_compile SETTINGS_XML=$SETTINGS_XML'
+                    sh 'make SETTINGS_XML=${SETTINGS_XML} wc_java.compile'
                 }
             }
         }
