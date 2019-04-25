@@ -35,10 +35,8 @@ build('cds-proto', 'docker-host') {
         // Java
         runStage('Execute build container') {
             withCredentials([[$class: 'FileBinding', credentialsId: 'java-maven-settings.xml', variable: 'SETTINGS_XML']]) {
-                if (env.BRANCH_NAME == 'master') {
-                    sh 'make wc_deploy_nexus SETTINGS_XML=$SETTINGS_XML'
-                } else if (env.BRANCH_NAME.startsWith('epic/')) {
-                    sh 'make wc_deploy_epic_nexus SETTINGS_XML=$SETTINGS_XML'
+                if (env.BRANCH_NAME == 'master' || env.BRANCH_NAME.startsWith('epic/')) {
+                    sh 'make SETTINGS_XML=${SETTINGS_XML} BRANCH_NAME=${BRANCH_NAME} wc_java.deploy'
                 } else {
                     sh 'make SETTINGS_XML=${SETTINGS_XML} wc_java.compile'
                 }
