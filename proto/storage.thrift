@@ -27,6 +27,10 @@ struct PutCardDataResult {
     2: required base.PaymentSessionID session_id
 }
 
+struct PutCardResult {
+    1: required base.BankCard bank_card
+}
+
 /** Код проверки подлинности банковской карты */
 struct CardSecurityCode {
     /** Код верификации [0-9]{3,4} */
