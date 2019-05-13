@@ -76,10 +76,6 @@ service Storage {
     CardData GetCardData (1: base.Token token)
         throws (1: CardDataNotFound not_found)
 
-    /** Получить карточные данные c CVV */
-    CardData GetSessionCardData (1: base.Token token, 2: base.PaymentSessionID session_id)
-        throws (1: CardDataNotFound not_found)
-
     /** Получить данные сессии */
     SessionData GetSessionData (1: base.PaymentSessionID session_id)
         throws (1: SessionDataNotFound not_found)
