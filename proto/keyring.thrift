@@ -187,9 +187,6 @@ service Keyring {
     /** Отменить операцию создания нового masterkey */
     void CancelRekey () throws (1: InvalidStatus invalid_status)
 
-    /** Получить состояние операций */
-    KeyringState GetState ()
-
     /** Начинает процесс блокировки */
     void StartUnlock ()
         throws (1: InvalidStatus invalid_status,
@@ -229,4 +226,11 @@ service Keyring {
 
     /** Отменяет процесс добавления нового ключа в кейринг */
     void CancelRotate () throws (1: InvalidStatus invalid_status)
+
+    /** Получить состояние операций */
+    KeyringState GetState ()
+
+    /** Установить последний ключ Keyring который может быть использован Storage */
+    void SetKeyringMetaCurrentKey (1: i16 key_id)
+        throws (1: InvalidArguments invalid_args)
 }
