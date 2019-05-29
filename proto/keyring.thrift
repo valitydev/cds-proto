@@ -107,6 +107,10 @@ struct KeyringState {
     2: required ActivitiesState activities
 }
 
+struct KeyringMeta {
+    1: optional i64 last_valid_key_id
+}
+
 exception InvalidStatus {
     1: required Status status
 }
@@ -230,7 +234,9 @@ service Keyring {
     /** Получить состояние операций */
     KeyringState GetState ()
 
-    /** Установить последний ключ Keyring который может быть использован Storage */
-    void SetKeyringMetaCurrentKey (1: i16 key_id)
+    /** Установить мета данные Keyring, используемые Storage */
+    void SetKeyringMeta (1: KeyringMeta keyring_meta)
         throws (1: InvalidArguments invalid_args)
+
+    KeyringMeta GetKeyringMeta ()
 }
