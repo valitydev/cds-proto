@@ -5,6 +5,8 @@ typedef binary SignedMasterKeyShare;
 
 typedef string ShareholderId;
 
+typedef i64 KeyId;
+
 /** Зашифрованная часть мастер-ключа и кому он предназначается */
 struct EncryptedMasterKeyShare {
     // Уникальный ID, для однозначного определения владения
@@ -107,8 +109,12 @@ struct KeyringState {
     2: required ActivitiesState activities
 }
 
+struct KeyMeta {
+    1: optional boolean active
+}
+
 struct KeyringMeta {
-    1: optional i64 last_valid_key_id
+    1: optional map<KeyId, KeyMeta> keys_meta
 }
 
 exception InvalidStatus {
