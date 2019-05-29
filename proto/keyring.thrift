@@ -123,6 +123,10 @@ exception InvalidArguments {
     1: optional string reason
 }
 
+exception InvalidKeyringMeta {
+    1: optional string reason
+}
+
 exception OperationAborted {
     1: optional string reason
 }
@@ -236,7 +240,7 @@ service Keyring {
 
     /** Установить мета данные Keyring, используемые Storage */
     void SetKeyringMeta (1: KeyringMeta keyring_meta)
-        throws (1: InvalidArguments invalid_args)
+        throws (1: InvalidKeyringMeta invalid_meta)
 
     KeyringMeta GetKeyringMeta ()
 }
