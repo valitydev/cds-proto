@@ -110,7 +110,7 @@ struct KeyringState {
 }
 
 struct KeyMeta {
-    1: optional boolean active
+    1: optional boolean use_to_hash
 }
 
 struct KeyringMeta {
