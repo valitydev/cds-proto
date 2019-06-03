@@ -244,7 +244,7 @@ service Keyring {
     /** Получить состояние операций */
     KeyringState GetState ()
 
-    /** Изменить мета данные Keyring, используемые Storage */
+    /** Дополнить метаданные Keyring, используемые Storage */
     void UpdateKeyringMeta (1: KeyringMeta keyring_meta)
         throws (1: InvalidKeyringMeta invalid_meta)
 
