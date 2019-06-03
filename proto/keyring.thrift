@@ -5,6 +5,8 @@ typedef binary SignedMasterKeyShare;
 
 typedef string ShareholderId;
 
+typedef i64 KeyId;
+
 /** Зашифрованная часть мастер-ключа и кому он предназначается */
 struct EncryptedMasterKeyShare {
     // Уникальный ID, для однозначного определения владения
@@ -107,6 +109,14 @@ struct KeyringState {
     2: required ActivitiesState activities
 }
 
+struct KeyMeta {
+    1: optional bool retired
+}
+
+struct KeyringMeta {
+    1: optional map<KeyId, KeyMeta> keys_meta
+}
+
 exception InvalidStatus {
     1: required Status status
 }
@@ -116,6 +126,10 @@ exception InvalidActivity {
 }
 
 exception InvalidArguments {
+    1: optional string reason
+}
+
+exception InvalidKeyringMeta {
     1: optional string reason
 }
 
@@ -187,9 +201,6 @@ service Keyring {
     /** Отменить операцию создания нового masterkey */
     void CancelRekey () throws (1: InvalidStatus invalid_status)
 
-    /** Получить состояние операций */
-    KeyringState GetState ()
-
     /** Начинает процесс блокировки */
     void StartUnlock ()
         throws (1: InvalidStatus invalid_status,
@@ -229,4 +240,14 @@ service Keyring {
 
     /** Отменяет процесс добавления нового ключа в кейринг */
     void CancelRotate () throws (1: InvalidStatus invalid_status)
+
+    /** Получить состояние операций */
+    KeyringState GetState ()
+
+    /** Дополнить метаданные Keyring, используемые Storage */
+    void UpdateKeyringMeta (1: KeyringMeta keyring_meta)
+        throws (1: InvalidKeyringMeta invalid_meta)
+
+    /** Получить текущие мета данные Keyring, используемые Storage */
+    KeyringMeta GetKeyringMeta ()
 }
