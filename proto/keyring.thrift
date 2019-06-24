@@ -140,7 +140,7 @@ exception OperationAborted {
 exception VerificationFailed {}
 
 /** Интерфейс для администраторов */
-service Keyring {
+service KeyringManagement {
 
     /** Создать новый кейринг при начальном состоянии
      *  threshold - минимально необходимое количество ключей для восстановления мастер ключа
@@ -230,7 +230,7 @@ service Keyring {
 
     /*  Предоставить часть мастер-ключа для зашифровки нового инстанса кейринга.
      *  См. `Unlock`
-     */    
+     */
     KeyringOperationStatus ConfirmRotate (1: ShareholderId shareholder_id,
                                           2: SignedMasterKeyShare key_share)
         throws (1: InvalidStatus invalid_status,
@@ -250,4 +250,26 @@ service Keyring {
 
     /** Получить текущие мета данные Keyring, используемые Storage */
     KeyringMeta GetKeyringMeta ()
+}
+
+typedef binary KeyData;
+
+struct Key {
+    1: required KeyData data
+    2: required KeyMeta meta
+}
+
+struct Keyring {
+    1: required i64 version
+    2: required KeyId current_key_id
+    3: required map<KeyId, Key> keys
+}
+
+/** Интерфейс для получения ключей */
+service KeyringStorage {
+
+    /** Возвращает все ключи c метаданными, а также идентификатор текущего ключа */
+    Keyring GetKeyring ()
+        throws (1: InvalidStatus invalid_status)
+
 }
