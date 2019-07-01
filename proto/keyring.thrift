@@ -110,11 +110,11 @@ struct KeyringState {
 }
 
 struct KeyMeta {
-    1: optional bool retired
+    1: required bool retired
 }
 
 struct KeyringMeta {
-    1: optional map<KeyId, KeyMeta> keys_meta
+    1: required map<KeyId, KeyMeta> keys_meta
 }
 
 exception InvalidStatus {
