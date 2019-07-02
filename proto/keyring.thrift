@@ -114,7 +114,8 @@ struct KeyMeta {
 }
 
 struct KeyringMeta {
-    1: required map<KeyId, KeyMeta> keys_meta
+    1: optional map<KeyId, KeyMeta> keys_meta
+    2: optional KeyId current_key_id
 }
 
 exception InvalidStatus {
