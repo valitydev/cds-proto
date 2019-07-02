@@ -118,7 +118,7 @@ struct KeyringMeta {
     2: required KeyId current_key_id
 }
 
-struct UpdatedKeyringMeta {
+struct KeyringMetaDiff {
     1: optional map<KeyId, KeyMeta> keys_meta
     2: optional KeyId current_key_id
 }
@@ -251,7 +251,7 @@ service KeyringManagement {
     KeyringState GetState ()
 
     /** Дополнить метаданные Keyring, используемые Storage */
-    void UpdateKeyringMeta (1: UpdatedKeyringMeta keyring_meta)
+    void UpdateKeyringMeta (1: KeyringMetaDiff keyring_meta)
         throws (1: InvalidKeyringMeta invalid_meta
                 2: InvalidStatus invalid_status)
 
