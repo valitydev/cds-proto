@@ -128,6 +128,7 @@ struct KeyringMetaDiff {
     2: optional KeyId current_key_id
 }
 
+// What scrypt's options mean https://en.wikipedia.org/wiki/Scrypt
 struct ScryptOptions {
     1: required i32 n
     2: required i32 r
@@ -135,7 +136,8 @@ struct ScryptOptions {
 }
 
 struct SecurityParameters {
-    1: required ScryptOptions scrypt_opts
+    // Options for deduplication of Card Data in Storage service 
+    1: required ScryptOptions deduplication_hash_opts
 }
 
 exception InvalidStatus {
