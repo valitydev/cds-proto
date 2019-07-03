@@ -111,6 +111,11 @@ struct KeyringState {
 
 struct KeyMeta {
     1: required bool retired
+    2: required SecurityParameters security_parameters
+}
+
+struct KeyMetaDiff {
+    1: required bool retired
 }
 
 struct KeyringMeta {
@@ -119,8 +124,18 @@ struct KeyringMeta {
 }
 
 struct KeyringMetaDiff {
-    1: optional map<KeyId, KeyMeta> keys_meta
+    1: optional map<KeyId, KeyMetaDiff> keys_meta
     2: optional KeyId current_key_id
+}
+
+struct ScryptOptions {
+    1: required i32 n
+    2: required i32 r
+    3: required i32 p
+}
+
+struct SecurityParameters {
+    1: required ScryptOptions scrypt_opts
 }
 
 exception InvalidStatus {
