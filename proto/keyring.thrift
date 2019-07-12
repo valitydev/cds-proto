@@ -1,11 +1,14 @@
 namespace java com.rbkmoney.cds.keyring
 
-/** Часть мастер-ключа в виде JWS */
-typedef binary SignedMasterKeyShare;
-
 typedef string ShareholderId;
 
 typedef i64 KeyId;
+
+/** Подписанная часть мастер ключа и ID подписавшего */
+struct SignedMasterKeyShare {
+    1: required ShareholderId id
+    2: required binary signed_share
+}
 
 /** Зашифрованная часть мастер-ключа и кому он предназначается */
 struct EncryptedMasterKeyShare {
@@ -175,10 +178,8 @@ service KeyringManagement {
 
     /** Валидирует и завершает операцию над Keyring
      *  Вызывается после Init и Rekey (CDS-25)
-     *  key_share - SignedMasterKeyShare в виде JWS
      */
-    KeyringOperationStatus ValidateInit (1: ShareholderId shareholder_id,
-                                         2: SignedMasterKeyShare key_share)
+    KeyringOperationStatus ValidateInit (1: SignedMasterKeyShare key_share)
         throws (1: InvalidStatus invalid_status,
                 2: InvalidActivity invalid_activity,
                 3: VerificationFailed verification_failed,
@@ -199,8 +200,7 @@ service KeyringManagement {
     /** Подтвердить операцию создания нового masterkey
      *  key_share - старый masterkey share в количестве threshold
      */
-    KeyringOperationStatus ConfirmRekey (1: ShareholderId shareholder_id,
-                                         2: SignedMasterKeyShare key_share)
+    KeyringOperationStatus ConfirmRekey (1: SignedMasterKeyShare key_share)
         throws (1: InvalidStatus invalid_status,
                 2: InvalidActivity invalid_activity,
                 3: VerificationFailed verification_failed,
@@ -214,8 +214,7 @@ service KeyringManagement {
     /** Провалидировать расшифрованными фрагментами нового ключа
      *  key_share - новый masterkey share в количестве num
      */
-    KeyringOperationStatus ValidateRekey (1: ShareholderId shareholder_id,
-                                          2: SignedMasterKeyShare key_share)
+    KeyringOperationStatus ValidateRekey (1: SignedMasterKeyShare key_share)
         throws (1: InvalidStatus invalid_status,
                 2: InvalidActivity invalid_activity,
                 3: VerificationFailed verification_failed,
@@ -233,8 +232,7 @@ service KeyringManagement {
      *  Необходимо вызвать с разными частами мастер столько раз, сколько было указано в качестве
      *  параметра threshold при создании кейринга
      */
-    KeyringOperationStatus ConfirmUnlock (1: ShareholderId shareholder_id,
-                                          2: SignedMasterKeyShare key_share)
+    KeyringOperationStatus ConfirmUnlock (1: SignedMasterKeyShare key_share)
         throws (1: InvalidStatus invalid_status,
                 2: InvalidActivity invalid_activity,
                 3: VerificationFailed verification_failed,
@@ -254,8 +252,7 @@ service KeyringManagement {
     /*  Предоставить часть мастер-ключа для зашифровки нового инстанса кейринга.
      *  См. `Unlock`
      */
-    KeyringOperationStatus ConfirmRotate (1: ShareholderId shareholder_id,
-                                          2: SignedMasterKeyShare key_share)
+    KeyringOperationStatus ConfirmRotate (1: SignedMasterKeyShare key_share)
         throws (1: InvalidStatus invalid_status,
                 2: InvalidActivity invalid_activity,
                 3: VerificationFailed verification_failed,
