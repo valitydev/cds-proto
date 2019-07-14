@@ -1,6 +1,7 @@
 include "base.thrift"
 
 namespace java com.rbkmoney.cds.storage
+namespace erlang cds_proto
 
 /** Дата экспирации */
 struct ExpDate {
