@@ -1,4 +1,5 @@
 namespace java com.rbkmoney.cds.keyring
+namespace erlang cds
 
 typedef string ShareholderId;
 
