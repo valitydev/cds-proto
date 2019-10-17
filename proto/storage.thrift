@@ -13,14 +13,15 @@ struct ExpDate {
 
 /** Открытые карточные данные (в отличие от domain.BankCard) */
 struct CardData {
-    /** Номер карточки без пробелов [0-9]{14,19} */
+    /** Номер карты без пробелов [0-9]{14,19} */
     1: required string pan
-    2: required ExpDate exp_date
-    /** Имя держателя */
+    /** Дата экспирации карты */
+    2: optional ExpDate exp_date
+    /** Имя держателя карты */
     3: optional string cardholder_name
-    /** Deprecated */
     /** Код верификации [0-9]{3,4} */
-    4: optional string cvv
+    /** NOTE: Код верификации хранится, при необходимости, в данных сесси */
+    /** 4: optional string cvv */
 }
 
 struct PutCardDataResult {
@@ -73,7 +74,7 @@ exception SessionDataNotFound {}
  */
 service Storage {
 
-    /** Получить карточные данные без CVV */
+    /** Получить карточные данные */
     CardData GetCardData (1: base.Token token)
         throws (1: CardDataNotFound not_found)
 
