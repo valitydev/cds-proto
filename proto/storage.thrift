@@ -12,6 +12,7 @@ struct ExpDate {
 }
 
 /** Открытые карточные данные (в отличие от domain.BankCard) */
+/** NOTE: Код верификации хранится, при необходимости, в данных сессии */
 struct CardData {
     /** Номер карты без пробелов [0-9]{14,19} */
     1: required string pan
@@ -19,9 +20,6 @@ struct CardData {
     2: optional ExpDate exp_date
     /** Имя держателя карты */
     3: optional string cardholder_name
-    /** Код верификации [0-9]{3,4} */
-    /** NOTE: Код верификации хранится, при необходимости, в данных сессии */
-    /** 4: optional string cvv */
 }
 
 struct PutCardDataResult {
