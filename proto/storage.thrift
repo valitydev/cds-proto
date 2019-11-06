@@ -11,9 +11,15 @@ struct ExpDate {
     2: required i16 year
 }
 
-/** Открытые карточные данные (в отличие от domain.BankCard) */
+/** Карточные данные */
 /** NOTE: Код верификации хранится, при необходимости, в данных сессии */
 struct CardData {
+    /** Номер карты без пробелов [0-9]{14,19} */
+    1: required string pan
+}
+
+/** Карточные данные для записи на переходный период */
+struct PutCardData {
     /** Номер карты без пробелов [0-9]{14,19} */
     1: required string pan
     /** Дата экспирации карты */
@@ -81,13 +87,13 @@ service Storage {
         throws (1: SessionDataNotFound not_found)
 
     /** Сохранить карточные и сессионные данные */
-    PutCardDataResult PutCardData (1: CardData card_data, 2: SessionData session_data)
+    PutCardDataResult PutCardData (1: PutCardData card_data, 2: SessionData session_data)
         throws (
             1: InvalidCardData invalid
         )
 
     /** Сохранить карточные данные */
-    PutCardResult PutCard (1: CardData card_data)
+    PutCardResult PutCard (1: PutCardData card_data)
         throws (
             1: InvalidCardData invalid
         )
