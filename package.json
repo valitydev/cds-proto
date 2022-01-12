@@ -1,9 +1,0 @@
-{
-  "name": "cds-proto",
-  "version": "1.0.0",
-  "description": "CDS service thrift protocol.",
-  "author": "rbk.money",
-  "private": true,
-  "license": "UNLICENSED",
-  "homepage": "https://github.com/rbkmoney/cds-proto#readme"
-}

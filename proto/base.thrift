@@ -1,5 +1,5 @@
 
-namespace java com.rbkmoney.cds.base
+namespace java dev.vality.cds.base
 namespace erlang cds
 
 typedef string Token

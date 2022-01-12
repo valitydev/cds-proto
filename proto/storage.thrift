@@ -1,6 +1,6 @@
 include "base.thrift"
 
-namespace java com.rbkmoney.cds.storage
+namespace java dev.vality.cds.storage
 namespace erlang cds
 
 /** Дата экспирации */
